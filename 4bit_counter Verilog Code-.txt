@@ -1,0 +1,55 @@
+4bit_counter Verilog Code:- 
+
+`timescale 1ns / 1ps
+
+module counter_4bit(
+    input clk,
+    input reset,
+    output reg [3:0] count
+);
+
+always @(posedge clk)
+begin
+    if(reset)
+        count <= 4'b0000;
+    else
+        count <= count + 1'b1;
+end
+endmodule
+
+4Bit_counter Testbench code:-
+`timescale 1ns / 1ps
+
+module counter_4bit_tb;
+
+reg clk;
+reg reset;
+wire [3:0] count;
+
+// Instantiate the counter
+counter_4bit uut (
+    .clk(clk),
+    .reset(reset),
+    .count(count)
+);
+
+// Clock generation (10 ns period)
+always #5 clk = ~clk;
+
+initial
+begin
+    clk = 0;
+    reset = 1;
+
+    // Hold reset for 10 ns
+    #10;
+
+    reset = 0;
+
+    // Run simulation for 160 ns
+    #160;
+
+    $finish;
+end
+
+endmodule

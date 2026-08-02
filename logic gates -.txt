@@ -1,0 +1,53 @@
+logic gates :-
+`timescale 1ns / 1ps
+
+module logic_gates(
+    input A,
+    input B,
+    output AND_OUT,
+    output OR_OUT,
+    output NOT_OUT,
+    output XOR_OUT
+);
+
+assign AND_OUT = A & B;
+assign OR_OUT  = A | B;
+assign NOT_OUT = ~A;
+assign XOR_OUT = A ^ B;
+
+endmodule
+
+testbench:-
+`timescale 1ns / 1ps
+
+module logic_gates_tb;
+
+reg A;
+reg B;
+
+wire AND_OUT;
+wire OR_OUT;
+wire NOT_OUT;
+wire XOR_OUT;
+
+// Instantiate the module
+logic_gates uut (
+    .A(A),
+    .B(B),
+    .AND_OUT(AND_OUT),
+    .OR_OUT(OR_OUT),
+    .NOT_OUT(NOT_OUT),
+    .XOR_OUT(XOR_OUT)
+);
+
+initial
+begin
+    A = 0; B = 0; #10;
+    A = 0; B = 1; #10;
+    A = 1; B = 0; #10;
+    A = 1; B = 1; #10;
+
+    $finish;
+end
+
+endmodule
